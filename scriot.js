@@ -86,3 +86,4 @@ const animateNotes = (els) => {
     });
 };
 tl.add(animateNotes(notesG1)).add(animateNotes(notesG2), ">0.05").add(animateNotes(notesG3), ">0.25");
+window.console = window.console || function (t) { };
