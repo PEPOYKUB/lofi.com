@@ -1,51 +1,56 @@
-
-
 body {
-    background-color: rgb(0, 0, 0);
+  background-color: rgb(0, 0, 0);
 }
 
 .dropbtn {
-    width: 5px;
-    height: 5px;
-    border-radius: 100px;
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-    padding: 16px;
-    border: none;
-  }
-  
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    z-index: 1;
-    border-radius: 100px;
-  }
-  
-  .dropdown-content a {
-    width: 5px;
-    height: 5px;
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-  
-  .dropdown-content a:hover {
-    background-color: #ddd;
+  border-radius: 100px;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  padding: 5px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
-  
-  .dropdown:hover .dropdown-content {
-    display: block;
+
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
-  
-  .dropdown:hover .dropbtn {
-    background-color: rgb(62, 62, 62);
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  z-index: 1;
+  border-radius: 100px;
+}
+
+.dropdown-content a {
+  width: 5px;
+  height: 5px;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown .dropbtn:hover {
+  background-color: rgb(108, 108, 108);
+
+  color: #fff;
+}
+
+.btn-all{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
 :root {
@@ -56,60 +61,139 @@ body {
   --orange: #ffcc81;
   --cyan: #7ed1e2;
 }
+
 body {
   height: 100vh;
   width: 100vw;
   background: var(--bg);
   display: flex;
-  place-content: center;
-  align-items: flex-end;
+  /* place-content: center;
+   */
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
 }
+
 .container {
   width: 80vw;
   height: 80vh;
 }
+
 .container svg {
   height: 100%;
   width: 100%;
   overflow: visible;
 }
+
 #bongo-cat {
   fill: var(--bg);
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 4;
 }
+
 #bongo-cat .laptop-cover,
 #bongo-cat .headphone .band {
   fill: none;
 }
-#bongo-cat .paw, #bongo-cat .head {
+
+#bongo-cat .paw,
+#bongo-cat .head {
   stroke: var(--orange);
 }
+
 #bongo-cat .laptop-keyboard {
   stroke-width: 2;
 }
+
 #bongo-cat .terminal-code {
   stroke-width: 5;
 }
+
 #bongo-cat .music .note,
 #bongo-cat .laptop-base,
 #bongo-cat .laptop-cover,
 #bongo-cat .paw .pads {
   stroke: var(--pink);
 }
+
 #bongo-cat .table line,
 #bongo-cat .headphone .band,
 #bongo-cat .headphone .speaker path:nth-child(3) {
   stroke: var(--green);
 }
+
 #bongo-cat .terminal-frame,
 #bongo-cat .laptop-keyboard,
 #bongo-cat .headphone .speaker path:nth-child(2) {
   stroke: var(--blue);
 }
+
 #bongo-cat .terminal-code,
 #bongo-cat .headphone .speaker path:first-child {
   stroke: var(--cyan);
+}
+
+/* Range inp */
+
+/*********** Baseline, reset styles ***********/
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 25rem;
+}
+
+/* Removes default focus */
+input[type="range"]:focus {
+  outline: none;
+}
+
+/******** Chrome, Safari, Opera and Edge Chromium styles ********/
+/* slider track */
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: #b0b0b0;
+  border-radius: 0.5rem;
+  height: 0.5rem;
+}
+
+/* slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  margin-top: -4px; /* Centers thumb on the track */
+  background-color: #808080;
+  border-radius: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+  outline: 3px solid #808080;
+  outline-offset: 0.125rem;
+}
+
+/*********** Firefox styles ***********/
+/* slider track */
+input[type="range"]::-moz-range-track {
+  background-color: #b0b0b0;
+  border-radius: 0.5rem;
+  height: 0.5rem;
+}
+
+/* slider thumb */
+input[type="range"]::-moz-range-thumb {
+  background-color: #808080;
+  border: none; /*Removes extra border that FF applies*/
+  border-radius: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+}
+
+input[type="range"]:focus::-moz-range-thumb{
+  outline: 3px solid #808080;
+  outline-offset: 0.125rem;
 }
