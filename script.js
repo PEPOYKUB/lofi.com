@@ -96,8 +96,7 @@ let audioPlayer = null;
 document.getElementById('pause-sound').style.display = 'block'
 document.getElementById('play-sound').style.display = 'none'
 
-function toggleSound() {
-    const soundUrl = "https://codenameapp-d9342.web.app/static/media/DanceWithMe.9a1a56b1fb707555b523.mp3";
+function toggleSound(soundUrl) {
 
     if (audioPlayer) {
         if (audioPlayer.paused) {
