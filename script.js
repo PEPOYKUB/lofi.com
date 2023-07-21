@@ -88,3 +88,31 @@ const animateNotes = (els) => {
 };
 tl.add(animateNotes(notesG1)).add(animateNotes(notesG2), ">0.05").add(animateNotes(notesG3), ">0.25");
 window.console = window.console || function (t) { };
+
+// song func
+
+let audioPlayer = null;
+
+document.getElementById('pause-sound').style.display = 'block'
+document.getElementById('play-sound').style.display = 'none'
+
+function toggleSound() {
+    const soundUrl = "https://codenameapp-d9342.web.app/static/media/DanceWithMe.9a1a56b1fb707555b523.mp3";
+
+    if (audioPlayer) {
+        if (audioPlayer.paused) {
+            audioPlayer.play();
+            document.getElementById('play-sound').style.display = 'block';
+            document.getElementById('pause-sound').style.display = 'none';
+        } else {
+            audioPlayer.pause();
+            document.getElementById('play-sound').style.display = 'none';
+            document.getElementById('pause-sound').style.display = 'block';
+        }
+    } else {
+        audioPlayer = new Audio(soundUrl);
+        audioPlayer.play();
+        document.getElementById('play-sound').style.display = 'block';
+        document.getElementById('pause-sound').style.display = 'none';
+    }
+}
