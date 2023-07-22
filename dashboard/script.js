@@ -4,13 +4,13 @@ function login() {
 
     if(username == 'pp_kxb'){
         if(password == 'p1234'){
-            window.location = '/datshboard.html'
+            window.location.href = 'dashboard.html'
         }
     }
 
     if(username == 'jay'){
         if(password == 'j1234'){
-            window.location = '/datshboard.html'
+            window.location.href = 'dashboard.html'
         }
     }
 }

@@ -21,7 +21,7 @@ $.ajax(settings).done(function (response) {
 
         const tdDeleteButton = document.createElement('td');
         const deleteForm = document.createElement('form');
-        deleteForm.action = '/datshboard.html';
+        deleteForm.action = 'dashboard.html';
         deleteForm.method = 'get';
 
         const deleteButton = document.createElement('button');
@@ -62,7 +62,7 @@ if (urlParams.get('Email') !== null) {
     $.ajax(delSetting).done(function (response) {
         console.log(response);
         setTimeout(() => {
-            window.location = '/datshboard.html'
+            window.location.href = 'dashboard.html'
         }, 2000)
     });
 
@@ -80,10 +80,10 @@ function addUser() {
 
     $.ajax(settings).done(function (response) {
         console.log(response);
-        if(response.Status == 400){
+        if (response.Status == 400) {
             alert("มีอีเมลนี้แล้ว")
-        }else{
-            window.location = '/datshboard.html'
+        } else {
+            window.location.href = 'dashboard.html'
         }
     });
 }
