@@ -21,6 +21,10 @@ const audioPlayer = new Audio(soundUrl);
  */
 const button = document.getElementById('b-ctrl');
 
+if (audioTime > 0) {
+    button.innerHTML = "เล่นต่อที่ค้างไว้...";
+}
+
 function toggleSound() {
     /**
      * เปลี่ยนจากสถานะการฟัง เป็นอีกสถานะหนึ่ง
