@@ -1,8 +1,3 @@
-// song func
-
-document.getElementById('pause-sound').style.display = 'block'
-document.getElementById('play-sound').style.display = 'none'
-
 /**
  * ดึงค่าเวลา มาจาก localStorage (ที่เก็บข้อมูลบนเว็บ)
  */
@@ -21,6 +16,14 @@ const soundUrl = `
 `;
 
 const audioPlayer = new Audio(soundUrl);
+/**
+ * นำ button เข้ามาใช้งาน
+ */
+const button = document.getElementById('b-ctrl');
+
+if (audioTime > 0) {
+    button.innerHTML = "เล่นต่อที่ค้างไว้...";
+}
 
 function toggleSound() {
     /**
@@ -28,34 +31,42 @@ function toggleSound() {
      */
     state = !state;
 
+
     /**
      * เช็คว่าค่าปัจจุบัน มีการเล่น หรือ หยุด
      */
     if (state) {
         /**
-         * จะสั่งให้เล่นเพลง และ เปลี่ยนค่า css บางอย่าง
+         * จะสั่งให้เล่นเพลง และเปลี่ยนคำใน button จากเล่น เป็นหยุด 
          */
         audioPlayer.play();
-        document.getElementById('play-sound').style.display = 'block';
-        document.getElementById('pause-sound').style.display = 'none';
-        /**
-         * จะกำหนดให้ค่าของตัวแปร audioTime เก็บเวลาครั้งล่าสุด เมื่อเวลาของเพลงเปลี่ยน
-         */
-        audioPlayer.ontimeupdate = function () {
-            audioTime = audioPlayer.currentTime;
-        }
+        button.innerHTML = "Pause"
     }
     /**
      * หากว่าไม่ได้เล่นเพลงอยู่ บรรทัดด้านล่างนี้ จะถูกทำงาน
      */
     else {
         /**
-         * จะสั่งให้หยุดเพลง และ เปลี่ยนค่า css บางอย่าง
+         * จะสั่งให้หยุดเพลง และเปลี่ยนคำใน button จากหยุด เป็นเล่น
          */
         audioPlayer.pause();
-        document.getElementById('play-sound').style.display = 'none';
-        document.getElementById('pause-sound').style.display = 'block';
+        button.innerHTML = "Play"
+    }
+    /**
+     * ให้เก็บเวลาปัจจุบัน
+     */
+    keepTime();
+}
 
+function keepTime() {
+    if (state) {
+        /**
+         * จะกำหนดให้ค่าของตัวแปร audioTime เก็บเวลาครั้งล่าสุด เมื่อเวลาของเพลงเปลี่ยน
+         */
+        audioPlayer.ontimeupdate = function () {
+            audioTime = audioPlayer.currentTime;
+        }
+    } else {
         /**
          * เมื่อกดหยุดเพลง จะให้เก็บค่าล่าสุดเอาไว้ที่ localStorage (ที่เก็บข้อมูลบนเว็บ)
          */
@@ -64,12 +75,42 @@ function toggleSound() {
 }
 
 /**
- * บรรทัดนี้ จะถูกทำงาน 
+ * ส่วนนี้ จะถูกทำงาน 
  * เมื่อผู้ใช้งานปิดแท็ปขณะฟังเพลง 
+ * จะแจ้งเตือนให้ทราบอีกครั้งว่า
  * เวลาจะไม่ถูกบันทึก
  */
-function whenClose() {
+window.onbeforeunload = confirmExit;
+function confirmExit() {
     if (state) {
-        return "";
+        return "You have attempted to leave this page";
     }
+
+}
+
+function clearTime() {
+    /**
+     * หากว่าเล่นเพลงอยู่ในหยุดเพลง 
+     * หากไม่ได้เล่น สั่งว่าไม่ต้องทำอะไร
+     * ใช้การเขียนแบบ Ternary Operator ดูได้อีกที่ 
+     * "https://www.techstarthailand.com/blog/detail/Write-Minified-Code-with-The-Ternary-Operator/865"
+     */
+    state ? audioPlayer.pause() : null;
+    /**
+     *  สั่งให้เปลี่ยนเวลาเป็น 0
+     */
+    audioPlayer.currentTime = 0;
+    /**
+     * สั่งให้เก็บเวลาเป็น 0
+     */
+    localStorage.setItem("currentTime", 0);
+    /**
+     * เปลี่ยนสถานะการเล่นเป็น false หมายความว่า
+     * เพลงไม่ได้เล่น
+     */
+    state = false;
+    /**
+     * สั่งให้หน้าเว็บโหลดใหม่ทั้งหมด
+     */
+    window.location.reload();
 }
