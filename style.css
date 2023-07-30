@@ -1,143 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
 
 .body {
-  background-color: #808080;
+  background-color: #e70202;
 }
-
-.dropbtn {
-  border-radius: 100px;
-  background-color: #ffffff;
-  color: rgb(0, 0, 0);
-  padding: 5px;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  z-index: 1;
-  border-radius: 100px;
-}
-
-.dropdown-content a {
-  width: 5px;
-  height: 5px;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.dropdown .dropbtn:hover {
-  background-color: rgb(108, 108, 108);
-
-  color: #fff;
-}
-
-.btn-all {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-:root {
-  --bg: #1a1e2d;
-  --green: #a5ea9b;
-  --pink: #ff61d8;
-  --blue: #569cfa;
-  --orange: #ffcc81;
-  --cyan: #7ed1e2;
-}
-
-body {
-  height: 100vh;
-  width: 100vw;
-  background: var(--bg);
-  display: flex;
-  /* place-content: center;
-   */
-  flex-direction: column;
-
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-.container {
-  width: 80vw;
-  height: 80vh;
-}
-
-.container svg {
-  height: 100%;
-  width: 100%;
-  overflow: visible;
-}
-
-#bongo-cat {
-  fill: var(--bg);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 4;
-}
-
-#bongo-cat .laptop-cover,
-#bongo-cat .headphone .band {
-  fill: none;
-}
-
-#bongo-cat .paw,
-#bongo-cat .head {
-  stroke: var(--orange);
-}
-
-#bongo-cat .laptop-keyboard {
-  stroke-width: 2;
-}
-
-#bongo-cat .terminal-code {
-  stroke-width: 5;
-}
-
-#bongo-cat .music .note,
-#bongo-cat .laptop-base,
-#bongo-cat .laptop-cover,
-#bongo-cat .paw .pads {
-  stroke: var(--pink);
-}
-
-#bongo-cat .table line,
-#bongo-cat .headphone .band,
-#bongo-cat .headphone .speaker path:nth-child(3) {
-  stroke: var(--green);
-}
-
-#bongo-cat .terminal-frame,
-#bongo-cat .laptop-keyboard,
-#bongo-cat .headphone .speaker path:nth-child(2) {
-  stroke: var(--blue);
-}
-
-#bongo-cat .terminal-code,
-#bongo-cat .headphone .speaker path:first-child {
-  stroke: var(--cyan);
-}
-
 /* Range inp */
 
 /*********** Baseline, reset styles ***********/
@@ -282,4 +147,51 @@ input[type="range"]:focus::-moz-range-thumb {
 
 .opacity-10 {
   opacity: .1;
+}
+*/
+/* เลือกรูป */
+.btn {
+  background-color: blue;
+  color: red;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+.drop {
+  position: relative;
+  display: inline-block;
+}
+.drop-content {
+  display: none;
+  position: absolute;
+  background-color: black;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(232, 225, 225, 0.2);
+  z-index: 1;
+}
+drop-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.drop-content a:hover {
+  background-color: black;
+}
+.drop:hover .drop-content {
+  display: block;
+}
+.drop:hover .btn {
+  background-color: blue;
+}
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(50px, 50px);
+}
+.drop {
+  background-color: rgb(151, 151, 151);
+  border-radius: 50px;
 }
