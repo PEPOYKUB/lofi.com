@@ -1,117 +1,156 @@
-/**
- * ดึงค่าเวลา มาจาก localStorage (ที่เก็บข้อมูลบนเว็บ)
- */
-let audioTime = localStorage.getItem("currentTime");
+const audioSource = [
+    {
+        "src": "assets/songs/aesthetics-138637.mp3",
+        "name": "aesthetics"
+    },
+    {
+        "src": "assets/songs/empty-mind-118973.mp3",
+        "name": "empty-mind"
+    },
+    {
+        "src": "assets/songs/fashion-show-113553.mp3",
+        "name": "fashion-show"
+    },
+    {
+        "src": "assets/songs/happy-beats-113550.mp3",
+        "name": "happy-beats"
+    },
+    {
+        "src": "assets/songs/hip-hop-is-112772.mp3",
+        "name": "hip-hop-is"
+    },
+    {
+        "src": "assets/songs/lo-fi-chill-128218.mp3",
+        "name": "lo-fi-chill"
+    },
+    {
+        "src": "assets/songs/lofi-chill-140858.mp3",
+        "name": "lofi-chill"
+    },
+    {
+        "src": "assets/songs/soon-fool-moon-151644.mp3",
+        "name": "soon-fool-moon"
+    },
+    {
+        "src": "assets/songs/sunset-vibes-lo-fichillhop-9503.mp3",
+        "name": "sunset-vibes-lo-fichillhop"
+    },
+    {
+        "src": "assets/songs/the-podcast-intro-111863.mp3",
+        "name": "the-podcast-intro"
+    },
+];
+
+let display_time = document.getElementById("time");
+let toggleButton = document.getElementById("tb");
+let currentSong = audioSource[0];
+let songName = currentSong.name;
+let songSrc = currentSong.src;
+let audio = new Audio(songSrc);
 let state = false;
+let duration = 0;
 
-/**
- * หากเวลาที่เก็บไว้ใน localStorage (ที่เก็บข้อมูลบนเว็บ) ไม่พบ จะให้เก็บข้อมูลเวลา เป็น 0
- */
-if (audioTime === null) {
-    window.localStorage.setItem("currentTime", 0);
-}
+$(document).ready(function() {
+    $(audio).on("loadedmetadata", function() {
+        duration = audio.duration;
+        display_time.innerHTML = `00:00 / ${timeFormat(duration)}`;
+    });
+    
+    $(audio).on("ended", function() {
+        toggleSound("next");
+    });
 
-const soundUrl = `
-    https://codenameapp-d9342.web.app/static/media/DanceWithMe.9a1a56b1fb707555b523.mp3#t=${audioTime}
-`;
+    $('#nb').on("click", function() {
+        toggleSound("next");
+    });
 
-const audioPlayer = new Audio(soundUrl);
-/**
- * นำ button เข้ามาใช้งาน
- */
-const button = document.getElementById('b-ctrl');
+    $('#pb').on("click", function() {
+        toggleSound("previous");
+    });
 
-if (audioTime > 0) {
-    button.innerHTML = "เล่นต่อที่ค้างไว้...";
-}
+    $('#tb').on("click", function(e) {
+        toggleSound("toggle");
+    });
+    $('#dn').html(songName);
+});
 
-function toggleSound() {
-    /**
-     * เปลี่ยนจากสถานะการฟัง เป็นอีกสถานะหนึ่ง
-     */
-    state = !state;
+function timeFormat(default_duration) {
+    if (!isNaN(default_duration)) {
+        const minutes = Math.floor(default_duration / 60);
+        const minutesFormat = minutes < 10 ? `0${minutes}` : `${minutes}`;
 
+        const seconds = Math.floor(default_duration % 60);;
+        const secondsFormat = seconds < 10 ? `0${seconds}` : `${seconds}`;
 
-    /**
-     * เช็คว่าค่าปัจจุบัน มีการเล่น หรือ หยุด
-     */
-    if (state) {
-        /**
-         * จะสั่งให้เล่นเพลง และเปลี่ยนคำใน button จากเล่น เป็นหยุด 
-         */
-        audioPlayer.play();
-        button.innerHTML = "Pause"
-    }
-    /**
-     * หากว่าไม่ได้เล่นเพลงอยู่ บรรทัดด้านล่างนี้ จะถูกทำงาน
-     */
-    else {
-        /**
-         * จะสั่งให้หยุดเพลง และเปลี่ยนคำใน button จากหยุด เป็นเล่น
-         */
-        audioPlayer.pause();
-        button.innerHTML = "Play"
-    }
-    /**
-     * ให้เก็บเวลาปัจจุบัน
-     */
-    keepTime();
-}
-
-function keepTime() {
-    if (state) {
-        /**
-         * จะกำหนดให้ค่าของตัวแปร audioTime เก็บเวลาครั้งล่าสุด เมื่อเวลาของเพลงเปลี่ยน
-         */
-        audioPlayer.ontimeupdate = function () {
-            audioTime = audioPlayer.currentTime;
-        }
+        return `${minutesFormat}:${secondsFormat}`;
     } else {
-        /**
-         * เมื่อกดหยุดเพลง จะให้เก็บค่าล่าสุดเอาไว้ที่ localStorage (ที่เก็บข้อมูลบนเว็บ)
-         */
-        window.localStorage.setItem("currentTime", audioTime);
+        return "00:00";
     }
 }
 
-/**
- * ส่วนนี้ จะถูกทำงาน 
- * เมื่อผู้ใช้งานปิดแท็ปขณะฟังเพลง 
- * จะแจ้งเตือนให้ทราบอีกครั้งว่า
- * เวลาจะไม่ถูกบันทึก
- */
-window.onbeforeunload = confirmExit;
-function confirmExit() {
-    if (state) {
-        return "You have attempted to leave this page";
+function toggleSound(query) {
+    state = !state;
+    let currentIndex = audioSource.findIndex((ele) => ele.name === currentSong.name);
+    console.log(currentIndex);
+
+    if (query === "toggle") {
+        togglePlay();
+        return;
     }
 
-}
+    if (query === "next") {
+        next();
+        return;
+    }
 
-function clearTime() {
-    /**
-     * หากว่าเล่นเพลงอยู่ในหยุดเพลง 
-     * หากไม่ได้เล่น สั่งว่าไม่ต้องทำอะไร
-     * ใช้การเขียนแบบ Ternary Operator ดูได้อีกที่ 
-     * "https://www.techstarthailand.com/blog/detail/Write-Minified-Code-with-The-Ternary-Operator/865"
-     */
-    state ? audioPlayer.pause() : null;
-    /**
-     *  สั่งให้เปลี่ยนเวลาเป็น 0
-     */
-    audioPlayer.currentTime = 0;
-    /**
-     * สั่งให้เก็บเวลาเป็น 0
-     */
-    localStorage.setItem("currentTime", 0);
-    /**
-     * เปลี่ยนสถานะการเล่นเป็น false หมายความว่า
-     * เพลงไม่ได้เล่น
-     */
-    state = false;
-    /**
-     * สั่งให้หน้าเว็บโหลดใหม่ทั้งหมด
-     */
-    window.location.reload();
-}
+    if (query === "previous") {
+        previous();
+        return;
+    }
 
+    function togglePlay() {
+        if (state) {
+            audio.play();
+            toggleButton.innerHTML = "Pause";
+
+            audio.ontimeupdate = function() {
+                const minutes = `${timeFormat(audio.currentTime)}`;
+                const seconds = `${timeFormat(duration)}`;
+                display_time.innerHTML = `${minutes} / ${seconds}`;
+            }
+        } else {
+            audio.pause();
+            toggleButton.innerHTML = "Play";
+        }
+    }
+
+    function next() {
+        if (currentIndex === audioSource.length - 1) {
+            currentSong = audioSource[0];
+        } else {
+            state = !state;
+            currentSong = audioSource[currentIndex + 1];
+            songSrc = currentSong.src;
+            songName = currentSong.name;
+            $('#dn').html(songName);
+            audio.src = songSrc;
+            audio.load();
+            togglePlay();
+        }
+    }
+
+    function previous() {
+        if (currentIndex === 0) {
+            currentSong = audioSource[audioSource.length - 1];
+        } else {
+            state = !state;
+            currentSong = audioSource[currentIndex - 1];
+            songSrc = currentSong.src;
+            songName = currentSong.name;
+            $('#dn').html(songName);
+            audio.src = songSrc;
+            audio.load();
+            togglePlay();
+        }
+    }
+}
