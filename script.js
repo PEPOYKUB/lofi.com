@@ -1,5 +1,9 @@
 const audioSource = [
     {
+        "src": "assets/songs/lofi-chill-140858.mp3",
+        "name": "lofi-chill"
+    },
+    {
         "src": "assets/songs/aesthetics-138637.mp3",
         "name": "aesthetics"
     },
@@ -24,10 +28,6 @@ const audioSource = [
         "name": "lo-fi-chill"
     },
     {
-        "src": "assets/songs/lofi-chill-140858.mp3",
-        "name": "lofi-chill"
-    },
-    {
         "src": "assets/songs/soon-fool-moon-151644.mp3",
         "name": "soon-fool-moon"
     },
@@ -50,25 +50,25 @@ let audio = new Audio(songSrc);
 let state = false;
 let duration = 0;
 
-$(document).ready(function() {
-    $(audio).on("loadedmetadata", function() {
+$(document).ready(function () {
+    $(audio).on("loadedmetadata", function () {
         duration = audio.duration;
         display_time.innerHTML = `00:00 / ${timeFormat(duration)}`;
     });
-    
-    $(audio).on("ended", function() {
+
+    $(audio).on("ended", function () {
         toggleSound("next");
     });
 
-    $('#nb').on("click", function() {
-        toggleSound("next");
-    });
-
-    $('#pb').on("click", function() {
+    $('#pb').on("click", function () {
         toggleSound("previous");
     });
 
-    $('#tb').on("click", function(e) {
+    $('#nb').on("click", function () {
+        toggleSound("next");
+    });
+
+    $('#tb').on("click", function (e) {
         toggleSound("toggle");
     });
     $('#dn').html(songName);
@@ -91,7 +91,6 @@ function timeFormat(default_duration) {
 function toggleSound(query) {
     state = !state;
     let currentIndex = audioSource.findIndex((ele) => ele.name === currentSong.name);
-    console.log(currentIndex);
 
     if (query === "toggle") {
         togglePlay();
@@ -113,7 +112,7 @@ function toggleSound(query) {
             audio.play();
             toggleButton.innerHTML = "Pause";
 
-            audio.ontimeupdate = function() {
+            audio.ontimeupdate = function () {
                 const minutes = `${timeFormat(audio.currentTime)}`;
                 const seconds = `${timeFormat(duration)}`;
                 display_time.innerHTML = `${minutes} / ${seconds}`;
@@ -124,33 +123,37 @@ function toggleSound(query) {
         }
     }
 
+    function onChange() {
+        songSrc = currentSong.src;
+        songName = currentSong.name;
+        $('#dn').html(songName);
+        audio.src = songSrc;
+        audio.load();
+        togglePlay();
+    }
+
     function next() {
+        state = !state;
+
         if (currentIndex === audioSource.length - 1) {
             currentSong = audioSource[0];
         } else {
-            state = !state;
             currentSong = audioSource[currentIndex + 1];
-            songSrc = currentSong.src;
-            songName = currentSong.name;
-            $('#dn').html(songName);
-            audio.src = songSrc;
-            audio.load();
-            togglePlay();
         }
+
+        onChange();
     }
 
     function previous() {
+        state = !state;
+
         if (currentIndex === 0) {
             currentSong = audioSource[audioSource.length - 1];
         } else {
-            state = !state;
             currentSong = audioSource[currentIndex - 1];
-            songSrc = currentSong.src;
-            songName = currentSong.name;
-            $('#dn').html(songName);
-            audio.src = songSrc;
-            audio.load();
-            togglePlay();
         }
+
+        onChange();
     }
 }
+
