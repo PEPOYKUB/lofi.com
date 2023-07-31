@@ -156,4 +156,3 @@ function toggleSound(query) {
         onChange();
     }
 }
-
