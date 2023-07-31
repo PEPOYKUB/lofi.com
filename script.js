@@ -114,3 +114,4 @@ function clearTime() {
      */
     window.location.reload();
 }
+
