@@ -77,7 +77,7 @@ $(document).ready(function () {
     $('#video-select').on('change', function () {
         let videoSelect = $('#video-select').val();
         $('#background-video').attr('src', videoSelect);
-    })
+    });
 });
 
 function timeFormat(default_duration) {
