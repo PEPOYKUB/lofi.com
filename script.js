@@ -156,3 +156,13 @@ function toggleSound(query) {
         onChange();
     }
 }
+/* เปลี่ยนพื้นหลัง */
+document.addEventListener('DOMContentLoaded', function() {
+    const videoSelect = document.getElementById('video-select');
+    const backgroundVideo = document.getElementById('background-video');
+
+    videoSelect.addEventListener('change', function() {
+        const selectedVideo = videoSelect.value;
+        backgroundVideo.src = selectedVideo;
+    });
+});
