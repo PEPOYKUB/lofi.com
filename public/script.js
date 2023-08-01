@@ -16,8 +16,8 @@ const audioSource = [
         "name": "fashion-show"
     },
     {
-        "src": "assets/songs/happy-beats-113550.mp3",
-        "name": "happy-beats"
+        "src": "assets/songs/a-jazz-piano-110481.mp3",
+        "name": "a-jazz-piano"
     },
     {
         "src": "assets/songs/hip-hop-is-112772.mp3",
@@ -36,8 +36,8 @@ const audioSource = [
         "name": "sunset-vibes-lo-fichillhop"
     },
     {
-        "src": "assets/songs/the-podcast-intro-111863.mp3",
-        "name": "the-podcast-intro"
+        "src": "assets/songs/jazz-happy-110855.mp3",
+        "name": "jazz-happy"
     },
 ];
 
