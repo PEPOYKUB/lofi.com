@@ -166,3 +166,23 @@ document.addEventListener('DOMContentLoaded', function() {
         backgroundVideo.src = selectedVideo;
     });
 });
+
+// ฟังก์ชันในการอัปเดตเข็มชั่วโมงและเข็มนาที
+function updateClockHands() {
+    const thailandTime = new Date();
+    const utcOffset = 7; // ปรับตามช่วงเวลาของประเทศไทย (UTC+7)
+
+    // คำนวณเวลานาฬิกาโลก
+    const utcTime = new Date(thailandTime.getTime() - utcOffset * 3600000);
+
+    // คำนวณองศาในการหมุนของเข็มชั่วโมงและเข็มนาที
+    const hourDeg = (utcTime.getUTCHours() % 12) * 30 + utcTime.getUTCMinutes() * 0.5;
+    const minuteDeg = utcTime.getUTCMinutes() * 6;
+
+    // หมุนเข็ม
+    document.getElementById("hourHand").style.transform = `rotate(${hourDeg}deg)`;
+    document.getElementById("minuteHand").style.transform = `rotate(${minuteDeg}deg)`;
+  }
+
+  // เรียกใช้ฟังก์ชันในการอัปเดตเข็มชั่วโมงและเข็มนาทีทุกๆ 1 วินาที
+  setInterval(updateClockHands, 1000);
