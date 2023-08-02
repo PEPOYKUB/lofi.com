@@ -1,5 +1,9 @@
 const audioSource = [
     {
+        "src": "assets/songs/a-jazz-piano-110481.mp3",
+        "name": "a-jazz-piano"
+    },
+    {
         "src": "assets/songs/lofi-chill-140858.mp3",
         "name": "lofi-chill"
     },
@@ -35,10 +39,6 @@ const audioSource = [
         "src": "assets/songs/sunset-vibes-lo-fichillhop-9503.mp3",
         "name": "sunset-vibes-lo-fichillhop"
     },
-    {
-        "src": "assets/songs/a-jazz-piano-110481.mp3",
-        "name": "a-jazz-piano"
-    },
 ];
 
 let display_time = document.getElementById("time");
@@ -71,12 +71,14 @@ $(document).ready(function () {
     $('#tb').on("click", function (e) {
         toggleSound("toggle");
     });
+
     $('#dn').html(songName);
+    $('#header').html(songName);
 
     // เปลี่ยนพื้นหลัง
     $('#video-select').on('change', function () {
         let videoSelect = $('#video-select').val();
-        $('#background-video').attr('src', videoSelect);
+        $('video').attr('src', videoSelect);
     });
 });
 
@@ -116,7 +118,7 @@ function toggleSound(query) {
     function togglePlay() {
         if (state) {
             audio.play();
-            toggleButton.innerHTML = "Pause";
+            $("#tb").attr('class', 'bi bi-pause');
 
             audio.ontimeupdate = function () {
                 const minutes = `${timeFormat(audio.currentTime)}`;
@@ -125,7 +127,7 @@ function toggleSound(query) {
             }
         } else {
             audio.pause();
-            toggleButton.innerHTML = "Play";
+            $("#tb").attr('class', 'bi bi-play');
         }
     }
 
@@ -133,6 +135,7 @@ function toggleSound(query) {
         songSrc = currentSong.src;
         songName = currentSong.name;
         $('#dn').html(songName);
+        $('#header').html(songName);
         audio.src = songSrc;
         audio.load();
         togglePlay();
