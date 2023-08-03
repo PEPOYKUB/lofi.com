@@ -1,5 +1,5 @@
 var settings = {
-    "url": "https://misty-sheath-dress-wasp.cyclic.app/get",
+    "url": "https://ppkxbapi.cyclic.app/get",
     "method": "GET",
     "timeout": 0,
 };
@@ -54,7 +54,7 @@ const urlParams = new URLSearchParams(queryString);
 if (urlParams.get('Email') !== null) {
 
     var delSetting = {
-        "url": `https://misty-sheath-dress-wasp.cyclic.app/delete/?email=${urlParams.get('Email')}`,
+        "url": `https://ppkxbapi.cyclic.app/delete/?email=${urlParams.get('Email')}`,
         "method": "GET",
         "timeout": 0,
     };
@@ -73,7 +73,7 @@ function addUser() {
     const Password = $("#Password")
 
     var settings = {
-        "url": `https://misty-sheath-dress-wasp.cyclic.app/insert/?email=${Email.val()},&password=${Password.val()}`,
+        "url": `https://ppkxbapi.cyclic.app/insert/?email=${Email.val()},&password=${Password.val()}`,
         "method": "POST",
         "timeout": 0,
     };
