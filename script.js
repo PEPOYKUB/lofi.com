@@ -39,11 +39,23 @@ const audioSource = [
         "src": "assets/songs/sunset-vibes-lo-fichillhop-9503.mp3",
         "name": "sunset-vibes-lo-fichillhop"
     },
+    {
+        "src": "assets/songs/good-night-160166.mp3",
+        "name": "good-night"
+    },
+    {
+        "src": "assets/songs/Nene郑乃馨《All About That Day》Official Music Video.mp3",
+        "name": "Nene郑乃馨《All About That Day》Official Music Video"
+    }
 ];
+
+let songnumRand = Math.floor(Math.random() * audioSource.length);
+
+console.log(songnumRand);
 
 let display_time = document.getElementById("time");
 let toggleButton = document.getElementById("tb");
-let currentSong = audioSource[0];
+let currentSong = audioSource[songnumRand];
 let songName = currentSong.name;
 let songSrc = currentSong.src;
 let audio = new Audio(songSrc);
