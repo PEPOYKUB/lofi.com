@@ -51,8 +51,6 @@ const audioSource = [
 
 let songnumRand = Math.floor(Math.random() * audioSource.length);
 
-console.log(songnumRand);
-
 let display_time = document.getElementById("time");
 let toggleButton = document.getElementById("tb");
 let currentSong = audioSource[songnumRand];
