@@ -4,6 +4,16 @@
   font-family: 'Kanit', sans-serif;
 }
 
+body::-webkit-scrollbar{
+  background: none;
+  width: 8px;
+}
+
+body::-webkit-scrollbar-thumb{
+  border-radius: 50px;
+  background: antiquewhite;
+}
+
 header {
   position: relative;
   background-color: black;
