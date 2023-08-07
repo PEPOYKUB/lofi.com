@@ -88,3 +88,7 @@ i {
   cursor: pointer;
   margin: 15px;
 }
+
+.audio-control {
+  user-select: none;
+}

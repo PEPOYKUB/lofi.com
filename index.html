@@ -8,21 +8,23 @@
   <script src="js/jquery-3.7.0.min.js"></script>
   <link rel="shortcut icon" href="assets/images/favicon.ico">
   <link rel="stylesheet" href="css/boostrap/bootstrap.min.css">
-  <!-- <link rel="stylesheet" type="text/css" href="css/bulma/bulma.min.css"> -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-
 </head>
+
 <body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
-    <div class="container-fluid justify-content-around">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
       <a class="navbar-brand" id="dn"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" />
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item dropdown">
+            <!-- Video select -->
             <select class="form-select" aria-label="Default select example" id="video-select">
               <option selected value="">เปลี่ยนวิดีโอพื้นหลัง</option>
               <option value="assets\VDO\163058 (Original).mp4">วิดีโอ 1</option>
@@ -37,26 +39,23 @@
       </div>
     </div>
   </nav>
-  <br><br>
   <header>
-    <!-- This div is  intentionally blank. It creates the transparent black overlay over the video which you can modify in the CSS -->
     <div class="overlay"></div>
-
-    <!-- The HTML5 video element that will create the background video on the header -->
     <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
       <source src="assets\VDO\animated_background_-_104627 (Original).mp4" type="video/mp4">
-      </video>
+    </video>
 
       <!-- The header content -->
       <div class="container h-100">
         <div class="d-flex h-100 text-center align-items-center">
           <div class="w-100 text-white">
-            <h1 id="header" class="display-4"></h1>
-            <p class="lead mb-0 mt-2" id="display_time"></p>
-            <p class="fs-3 opacity-50" id="time"></p>
-            <i class="bi bi-skip-start" id="pb"></i>
-            <i class="bi bi-play" id="tb"></i>
-            <i class="bi bi-skip-end" id="nb"></i>
+            <h1 class="display-6" id="name"></h1>
+            <p class="fs-3 opacity-50" id="time">00:00</p>
+            <div class="audio-control">
+              <i class="bi bi-skip-start" id="previous"></i>
+              <i class="bi bi-play" id="play_pause"></i>
+              <i class="bi bi-skip-end" id="next"></i>
+            </div>
           </div>
         </div>
       </div>
@@ -68,13 +67,13 @@
         <div class="row">
           <div class="col-md-8 mx-auto">
             <p>Music from Pixabay.</p>
-            <p>อยากบอกเธอว่ารักอยากบอกว่าคิดถึงเธอ...</p>
+            <p>หน้าร้อนต้องยกให้ไทย แต่น่ารักกว่าใคร ต้องยกให้เธอ</p>
           </div>
         </div>
       </div>
     </section>
     <script src="script.js"></script>
     <script src="js/bootstrap.bundle.js"></script>
-  </body>
 
-  </html>
+  </body>
+</html>

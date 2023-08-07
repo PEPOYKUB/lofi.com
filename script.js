@@ -1,96 +1,129 @@
-const audioSource = [
-    {
-        "src": "assets/songs/a-jazz-piano-110481.mp3",
-        "name": "a-jazz-piano"
-    },
-    {
-        "src": "assets/songs/lofi-chill-140858.mp3",
-        "name": "lofi-chill"
-    },
-    {
-        "src": "assets/songs/aesthetics-138637.mp3",
-        "name": "aesthetics"
-    },
-    {
-        "src": "assets/songs/empty-mind-118973.mp3",
-        "name": "empty-mind"
-    },
-    {
-        "src": "assets/songs/fashion-show-113553.mp3",
-        "name": "fashion-show"
-    },
-    {
-        "src": "assets/songs/hip-hop-is-112772.mp3",
-        "name": "hip-hop-is"
-    },
-    {
-        "src": "assets/songs/hip-hop-is-112772.mp3",
-        "name": "hip-hop-is"
-    },
-    {
-        "src": "assets/songs/lo-fi-chill-128218.mp3",
-        "name": "lo-fi-chill"
-    },
-    {
-        "src": "assets/songs/soon-fool-moon-151644.mp3",
-        "name": "soon-fool-moon"
-    },
-    {
-        "src": "assets/songs/sunset-vibes-lo-fichillhop-9503.mp3",
-        "name": "sunset-vibes-lo-fichillhop"
-    },
-    {
-        "src": "assets/songs/good-night-160166.mp3",
-        "name": "good-night"
-    },
-    {
-        "src": "assets/songs/Nene郑乃馨《All About That Day》Official Music Video.mp3",
-        "name": "Nene郑乃馨《All About That Day》Official Music Video"
-    }
-];
-
-let songnumRand = Math.floor(Math.random() * audioSource.length);
-
-let display_time = document.getElementById("time");
-let toggleButton = document.getElementById("tb");
-let currentSong = audioSource[songnumRand];
-let songName = currentSong.name;
-let songSrc = currentSong.src;
-let audio = new Audio(songSrc);
+let audioList;
+let audio;
 let state = false;
+let currentIndex;
+let currentName;
 let duration = 0;
 
-$(document).ready(function () {
+$(document).ready(function() {
+    getAudioData();
+});
+
+async function getAudioData() {
+    const url = "https://apiii-tdx7.onrender.com/song";
+
+    let requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+    const request = await fetch(url, requestOptions);
+    const json = await request.json();
+
+    createAudio(json);
+}
+
+function createAudio(json) {
+    audioList = json;
+    rand_num = Rand_Audio(json);
+
+    file_name = audioList[rand_num].src;
+    src = `assets/songs/${file_name}`;
+    audio = new Audio(src);
+
+    currentIndex = rand_num;
+    currentName = audioList[rand_num].name;
+    $('#name').html(currentName);
+
+    onEvent();
+}
+
+function onEvent() {
+
     $(audio).on("loadedmetadata", function () {
         duration = audio.duration;
-        display_time.innerHTML = `00:00 / ${timeFormat(duration)}`;
+        time_info = `00:00 / ${timeFormat(duration)}`;
+        $('#time').html(time_info);
     });
 
-    $(audio).on("ended", function () {
-        toggleSound("next");
+    $(audio).on('ended', function() {
+        next(audio);
     });
 
-    $('#pb').on("click", function () {
-        toggleSound("previous");
+    $(audio).on('timeupdate', function() {
+        ontimeUpdate();
     });
 
-    $('#nb').on("click", function () {
-        toggleSound("next");
+    $('#play_pause').on('click', function() {
+        toggleAudio(audio);
     });
 
-    $('#tb').on("click", function (e) {
-        toggleSound("toggle");
+    $('#next').on('click', function() {
+        next(audio);
     });
 
-    $('#dn').html(songName);
-    $('#header').html(songName);
-
-    // เปลี่ยนพื้นหลัง
-    $('#video-select').on('change', function () {
-        let videoSelect = $('#video-select').val();
-        $('video').attr('src', videoSelect);
+    $('#previous').on('click', function() {
+        previous(audio);
     });
-});
+}
+
+function toggleAudio(audio) {
+
+    state = !state;
+
+    if (state) {
+        $('#play_pause').attr('class', 'bi bi-pause');
+        audio.play();
+    } else {
+        $('#play_pause').attr('class', 'bi bi-play');
+        audio.pause();
+    }
+}
+
+function next(audio) {
+
+    if (currentIndex === audioList.length-1) {
+        currentIndex = 0;
+    } else {
+        currentIndex += 1;
+    }
+
+    onChange(currentIndex, audio);
+}
+
+function previous(audio) {
+
+    if (currentIndex === 0) {
+        currentIndex = audioList.length - 1;
+    } else {
+        currentIndex -= 1;
+    }
+
+    onChange(currentIndex, audio);
+}
+
+function onChange(to, audio) {
+    audio_data = audioList[to];
+    name = audio_data.name;
+
+    file_name = audio_data.src;
+    src = `assets/songs/${file_name}`;
+    audio.src = src;
+    
+    audio.load();
+    audio.play();
+    setInfo(name, 'pause');
+}
+
+function setInfo(name, icon) {
+    $('#name').html(name);
+    $('#icon').attr('class', `bi bi-${icon}`)
+}
+
+function Rand_Audio(json) {
+    const rand_num = Math.floor(Math.random() * json.length);
+    return rand_num;
+}
 
 function timeFormat(default_duration) {
     if (!isNaN(default_duration)) {
@@ -106,72 +139,9 @@ function timeFormat(default_duration) {
     }
 }
 
-function toggleSound(query) {
-    state = !state;
-    let currentIndex = audioSource.findIndex((ele) => ele.name === currentSong.name);
-
-    if (query === "toggle") {
-        togglePlay();
-        return;
-    }
-
-    if (query === "next") {
-        next();
-        return;
-    }
-
-    if (query === "previous") {
-        previous();
-        return;
-    }
-
-    function togglePlay() {
-        if (state) {
-            audio.play();
-            $("#tb").attr('class', 'bi bi-pause');
-
-            audio.ontimeupdate = function () {
-                const minutes = `${timeFormat(audio.currentTime)}`;
-                const seconds = `${timeFormat(duration)}`;
-                display_time.innerHTML = `${minutes} / ${seconds}`;
-            }
-        } else {
-            audio.pause();
-            $("#tb").attr('class', 'bi bi-play');
-        }
-    }
-
-    function onChange() {
-        songSrc = currentSong.src;
-        songName = currentSong.name;
-        $('#dn').html(songName);
-        $('#header').html(songName);
-        audio.src = songSrc;
-        audio.load();
-        togglePlay();
-    }
-
-    function next() {
-        state = !state;
-
-        if (currentIndex === audioSource.length - 1) {
-            currentSong = audioSource[0];
-        } else {
-            currentSong = audioSource[currentIndex + 1];
-        }
-
-        onChange();
-    }
-
-    function previous() {
-        state = !state;
-
-        if (currentIndex === 0) {
-            currentSong = audioSource[audioSource.length - 1];
-        } else {
-            currentSong = audioSource[currentIndex - 1];
-        }
-
-        onChange();
-    }
+function ontimeUpdate() {
+    const minutes = `${timeFormat(audio.currentTime)}`;
+    const seconds = `${timeFormat(duration)}`;
+    const time = `${minutes} / ${seconds}`;
+    $('#time').html(time);
 }
