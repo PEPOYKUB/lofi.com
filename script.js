@@ -41,9 +41,7 @@ function createAudio(json) {
 function onEvent() {
 
     $(audio).on("loadedmetadata", function () {
-        duration = audio.duration;
-        time_info = `00:00 / ${timeFormat(duration)}`;
-        $('#time').html(time_info);
+        loadedMetadata();
     });
 
     $(audio).on('ended', function() {
@@ -65,6 +63,10 @@ function onEvent() {
     $('#previous').on('click', function() {
         previous(audio);
     });
+
+    $('#video-select').on('change', function() {
+        changeBg();
+    })
 }
 
 function toggleAudio(audio) {
@@ -144,4 +146,15 @@ function ontimeUpdate() {
     const seconds = `${timeFormat(duration)}`;
     const time = `${minutes} / ${seconds}`;
     $('#time').html(time);
+}
+
+function changeBg() {
+    let videoSelect = $('#video-select').val();
+    $('video').attr('src', videoSelect);
+}
+
+function loadedMetadata() {
+    duration = audio.duration;
+    time_info = `00:00 / ${timeFormat(duration)}`;
+    $('#time').html(time_info);
 }
