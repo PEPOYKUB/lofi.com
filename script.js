@@ -1,24 +1,26 @@
-let audioList;
+const URL = 'https://apiii-tdx7.onrender.com/';
 let audio;
-let state = false;
+let audioList;
 let currentIndex;
 let currentName;
 let duration = 0;
+let state = false;
 
 $(document).ready(function() {
     getAudioData();
 });
 
 async function getAudioData() {
-    const url = "https://apiii-tdx7.onrender.com/song";
 
     let requestOptions = {
         method: 'GET',
         redirect: 'follow'
     };
 
-    const request = await fetch(url, requestOptions);
+    const request = await fetch(URL + 'song', requestOptions);
     const json = await request.json();
+
+    $('.audio-control').show();
 
     createAudio(json);
 }
@@ -28,7 +30,7 @@ function createAudio(json) {
     rand_num = Rand_Audio(json);
 
     file_name = audioList[rand_num].src;
-    src = `assets/songs/${file_name}`;
+    src = URL + 'songs/' + file_name;
     audio = new Audio(src);
 
     currentIndex = rand_num;
@@ -66,7 +68,7 @@ function onEvent() {
 
     $('#video-select').on('change', function() {
         changeBg();
-    })
+    });
 }
 
 function toggleAudio(audio) {
@@ -84,7 +86,7 @@ function toggleAudio(audio) {
 
 function next(audio) {
 
-    if (currentIndex === audioList.length-1) {
+    if (currentIndex === audioList.length - 1) {
         currentIndex = 0;
     } else {
         currentIndex += 1;
@@ -106,20 +108,23 @@ function previous(audio) {
 
 function onChange(to, audio) {
     audio_data = audioList[to];
-    name = audio_data.name;
+    song_name = audio_data.name;
 
     file_name = audio_data.src;
-    src = `assets/songs/${file_name}`;
+    src = URL + 'songs/' + file_name;
     audio.src = src;
     
     audio.load();
     audio.play();
-    setInfo(name, 'pause');
+
+    setInfo(song_name, 'pause');
+
+    state = true;
 }
 
 function setInfo(name, icon) {
     $('#name').html(name);
-    $('#icon').attr('class', `bi bi-${icon}`)
+    $('#play_pause').attr('class', `bi bi-${icon}`);
 }
 
 function Rand_Audio(json) {
