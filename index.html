@@ -7,76 +7,103 @@
   <title id="title">Hello World</title>
   <script src="js/jquery-3.7.0.min.js"></script>
   <link rel="shortcut icon" href="assets/images/favicon.ico">
-  <link rel="stylesheet" href="css/bulma/bulma.min.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/boostrap/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 </head>
 
 <body>
-  <section class="hero is-fullheight is-default is-bold">
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        <div class="columns is-vcentered">
-          <div class="column is-5">
-            <figure class="image">
-              <img src="assets/images/card-img.jpg">
-            </figure>
-          </div>
-          <div class="column is-6 is-offset-1">
-            <h1 class="title is-3" id="dn"></h1>
-            <h2 class="subtitle is-5 mt-4" id="time">
-              00:00 / 00:00
-            </h2>
-            <br>
-            <p class="has-text-centered">
-              <button class="button is-medium is-rounded is-danger is-light m-3" id="pb">
-                Previous
-              </button>
-              <button class="button is-medium is-rounded is-warning is-light m-3" id="tb">
-                Play
-              </button>
-              <button class="button is-medium is-rounded is-success is-light m-3" id="nb">
-                Next
-              </button>
-            </p>
+  <!-- Navigation bar -->
+  <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand">Hello World</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon">
+        </span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" data-bs-toggle="offcanvas"
+              data-bs-target="#settings">การตั้งค่า</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="about.html">เกี่ยวกับเรา</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Offcanvas settings  -->
+  <div class="offcanvas offcanvas-end" id="settings">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Settings</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="container-fluid mt-3">
+        <h4 class="mb-4">เปลี่ยนวิดีโอพื้นหลัง</h4>
+        <select class="form-select" aria-label="Default select example" id="video-select">
+          <option value="assets\VDO\rain_-_44143 (720p).mp4">วิดีโอ 1</option>
+          <option value="assets\VDO\windows_-_105540 (Original).mp4">วิดีโอ 2</option>
+          <option value="assets\VDO\animated_background_-_104627 (Original).mp4" selected>วิดีโอ 3</option>
+          <option value="assets\VDO\aurora_borealis_-_90877 (720p).mp4">วิดีโอ 4</option>
+          <option value="assets\VDO\waves_-_22183 (720p).mp4">วิดีโอ 5</option>
+          <option value="assets\VDO\cafe_-_45887 (720p).mp4">วิดีโอ 6</option>
+          <option value="assets\VDO\clouds_-_64759 (1080p).mp4" selected>วิดีโอ 7</option>
+          <option value="assets\VDO\wood_-_112891 (1080p).mp4">วิดีโอ 8</option>
+        </select>
+        <div class="form-check mt-3">
+          <input class="form-check-input" type="checkbox" id="remember">
+          <label class="form-check-label" for="flexCheckDefault">
+            จดจำการตั้งค่า
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br><br>
+
+  <header class="mt-1">
+    <div class="overlay"></div>
+    <!-- video background -->
+    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+      <source src="assets\VDO\clouds_-_64759 (1080p).mp4" type="video/mp4">
+    </video>
+    <!-- The header content -->
+    <div class="container h-100">
+      <div class="d-flex h-100 text-center align-items-center">
+        <div class="w-100 text-white">
+          <h1 class="display-6" id="name"></h1>
+          <p class="fs-3 opacity-50" id="time">00:00</p>
+          <div class="audio-control">
+            <i class="bi bi-skip-start" id="previous"></i>
+            <i class="bi bi-play" id="play_pause"></i>
+            <i class="bi bi-skip-end" id="next"></i>
           </div>
         </div>
       </div>
     </div>
+  </header>
+
+  <!-- Page section example for content below the video header -->
+  <section class="my-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <p>Music from Pixabay.</p>
+          <p>หน้าร้อนต้องยกให้ไทย แต่น่ารักกว่าใคร ต้องยกให้เธอ</p>
+        </div>
+      </div>
+    </div>
   </section>
-  <!-- เปลี่ยนพื้นหลัง -->
-  <video id="background-video" loop muted autoplay>
-    <source src="path/to/your/video.mp4" type="video/mp4">
-    
-</video>
 
-<div id="video-dropdown">
-    <label for="video-select">เลือกวิดีโอพื้นหลัง</label>
-    <select id="video-select">
-        <option value="assets\VDO\windows_-_105540 (Original).mp4">วิดีโอ 1</option>
-        <option value="assets\VDO\163058 (Original).mp4">วิดีโอ 2</option>
-        <option value="assets\VDO\163060 (Original).mp4">วิดีโอ 3</option>
-        <option value="assets\VDO\163061 (Original).mp4">วิดีโอ 4</option>
-        <option value="assets\VDO\163062 (Original).mp4">วิดีโอ 5</option>
-        <option value="assets\VDO\animated_background_-_104627 (Original).mp4">วิดีโอ 5</option>
-        
-    </select>
-</div>
-<!-- นาฬิกา -->
-<h1>นาฬิกาโลก</h1>
-  <div id="clock">
-    <!-- ส่วนเหมือนเดิม -->
-    <p id="world-clock"></p>
-    <script>
-      // ส่วนเหมือนเดิม
-    </script>
-
-    <!-- เข็มชั่วโมงและเข็มนาที -->
-    <div class="hand hour-hand" id="hourHand"></div>
-    <div class="hand minute-hand" id="minuteHand"></div>
-    <p id="local-time"></p>
-
-
+  <!-- javascript -->
   <script src="script.js"></script>
+  <script src="js/bootstrap.bundle.js"></script>
 </body>
 
 </html>

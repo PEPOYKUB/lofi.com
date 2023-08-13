@@ -13,4 +13,10 @@ function login() {
             window.location.href = 'dashboard.html'
         }
     }
+
+    if(username == 'admin'){
+        if(password == 'a1234'){
+            window.location.href = 'dashboard.html'
+        }
+    }
 }

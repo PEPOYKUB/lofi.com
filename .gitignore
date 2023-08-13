@@ -13,7 +13,7 @@ firebase-debug.*.log*
 # Firebase Public
 public/
 
-.firebase.json
+firebase.json
 .firebaserc
 
 # Firebase config
