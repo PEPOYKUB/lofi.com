@@ -4,13 +4,10 @@ let audioList;
 let currentIndex;
 let currentName;
 let duration = 0;
-let videoSelect;
 let state = false;
-let remember_state;
 
 $(document).ready(function() {
     getAudioData();
-    onLoad();
 });
 
 async function getAudioData() {
@@ -26,10 +23,6 @@ async function getAudioData() {
     $('.audio-control').show();
 
     createAudio(json);
-}
-
-function onLoad() {
-
 }
 
 function createAudio(json) {
@@ -75,19 +68,6 @@ function onEvent() {
 
     $('#video-select').on('change', function() {
         changeBg();
-    });
-
-    $('#remember').change(function() {
-        console.log("Hi")
-        let checked = $('#remember');
-        let is_checked = checked.is(':checked');
-
-        if (is_checked) {
-            console.log(is_checked);
-        } else {
-            localStorage.setItem('remember', false);
-            changeBg();
-        }
     });
 }
 
@@ -173,35 +153,13 @@ function ontimeUpdate() {
     $('#time').html(time);
 }
 
-function changeBg(videoSrc) {
-    videoSelect = $('#video-select').val();
-
-    if (videoSrc === undefined) {
-        videoSrc = videoSelect;
-    }
-
-    $('video').attr('src', videoSrc);
+function changeBg() {
+    let videoSelect = $('#video-select').val();
+    $('video').attr('src', videoSelect);
 }
 
 function loadedMetadata() {
     duration = audio.duration;
     time_info = `00:00 / ${timeFormat(duration)}`;
     $('#time').html(time_info);
-}
-
-function remember() {
-    let checked = $('#remember');
-    let is_remember = localStorage.getItem('remember');
-
-    videoSelect = localStorage.getItem('vdobg');
-
-    if (is_remember === undefined) {
-        localStorage.setItem('remember', false);
-    }
-
-    if (is_remember) {
-        changeBg(videoSelect);
-        checked.attr('checked');
-        return;
-    }
 }
