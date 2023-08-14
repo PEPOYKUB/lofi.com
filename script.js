@@ -5,9 +5,13 @@ let currentIndex;
 let currentName;
 let duration = 0;
 let state = false;
+let is_checked;
+let videoSelect;
+let currentVideo;
 
-$(document).ready(function() {
+$(document).ready(function () {
     getAudioData();
+    syncSetting();
 });
 
 async function getAudioData() {
@@ -46,28 +50,32 @@ function onEvent() {
         loadedMetadata();
     });
 
-    $(audio).on('ended', function() {
+    $(audio).on('ended', function () {
         next(audio);
     });
 
-    $(audio).on('timeupdate', function() {
+    $(audio).on('timeupdate', function () {
         ontimeUpdate();
     });
 
-    $('#play_pause').on('click', function() {
+    $('#play_pause').on('click', function () {
         toggleAudio(audio);
     });
 
-    $('#next').on('click', function() {
+    $('#next').on('click', function () {
         next(audio);
     });
 
-    $('#previous').on('click', function() {
+    $('#previous').on('click', function () {
         previous(audio);
     });
 
-    $('#video-select').on('change', function() {
+    $('#select').on('change', function () {
         changeBg();
+    });
+
+    $('#remember').change(function () {
+        toggleSetting();
     });
 }
 
@@ -113,7 +121,7 @@ function onChange(to, audio) {
     file_name = audio_data.src;
     src = URL + 'songs/' + file_name;
     audio.src = src;
-    
+
     audio.load();
     audio.play();
 
@@ -154,12 +162,60 @@ function ontimeUpdate() {
 }
 
 function changeBg() {
-    let videoSelect = $('#video-select').val();
+    videoSelect = $('#select').val();
+    currentVideo = $('#select').prop('selectedIndex');
     $('video').attr('src', videoSelect);
+    if (is_checked) {
+        keep_settings();
+    };
 }
 
 function loadedMetadata() {
     duration = audio.duration;
     time_info = `00:00 / ${timeFormat(duration)}`;
     $('#time').html(time_info);
+}
+
+function syncSetting() {
+    let user_setting = localStorage.getItem('user_settings');
+    let detail = JSON.parse(user_setting);
+    let checkbox = $('#remember');
+
+    if (detail !== null) {
+        is_checked = detail.remember;
+        syncData();
+    }
+
+    function syncData() {
+        checkbox.prop('checked', true);
+        $('video').attr('src', detail.video_src);
+        $(`#select option:eq(${detail.video_current})`).prop('selected', true);
+    }
+}
+
+function toggleSetting() {
+    let checkbox = $('#remember');
+    let is_checked = checkbox[0].checked;
+
+    if (is_checked) {
+        keep_settings();
+    } else {
+        restore_settings();
+    }
+}
+
+function keep_settings() {
+    let object = {
+        remember: true,
+        video_src: videoSelect,
+        video_current: currentVideo
+    }
+
+    localStorage.setItem('user_settings', JSON.stringify(object));
+    is_checked = true;
+}
+
+function restore_settings() {
+    localStorage.removeItem('user_settings');
+    is_checked = false;
 }

@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
 
-*{
+* {
   font-family: 'Kanit', sans-serif;
 }
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
   background: none;
   width: 8px;
 }
 
-body::-webkit-scrollbar-thumb{
+body::-webkit-scrollbar-thumb {
   border-radius: 50px;
   background: antiquewhite;
 }
@@ -70,6 +70,7 @@ header .overlay {
 body {
   font-family: Arial, sans-serif;
 }
+
 #background-video {
   width: 100%;
   height: auto;
@@ -78,6 +79,7 @@ body {
   left: 0;
   z-index: -1;
 }
+
 #video-dropdown {
   margin-top: 30px;
 }
