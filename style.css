@@ -1,43 +1,119 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
 
-img {
-  padding: 5px;
-  border: 1px solid #ccc;
+/* fallback */
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(fonts/material_icons.woff2) format('woff2');
 }
-/*พื้นหลังเว็บ*/
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    /* -moz-font-feature-settings: 'liga'; */
+    -moz-osx-font-smoothing: grayscale;
 }
+
+body,
+p,
+a,
+h1,
+h2,
+select,
+option,
+input {
+    font-family: 'Kanit', sans-serif !important;
+}
+
+.video_background {
+    position: relative;
+    background-color: black;
+    height: 75vh;
+    min-height: 25rem;
+    width: 100%;
+    overflow: hidden;
+}
+
+.video_background video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 0;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.video_background .player {
+    position: relative;
+    z-index: 2;
+}
+
+.player {
+    margin: 0;
+    position: absolute;
+    top: 45%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    user-select: none;
+}
+
+#name {
+    user-select: text;
+}
+
+.video_background .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 1;
+}
+
 #background-video {
-  width: 100%;
-  height: auto;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
-#video-dropdown {
-  margin-top: 30px;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
-/* กำหนดสไตล์สำหรับเข็มชั่วโมงและเข็มนาที */
-.hand {
-  position: absolute;
-  background-color: black;
-  transform-origin: 50% 100%;
+select {
+    width: 400px !important;
+    text-align-last: center !important;
 }
 
-.hour-hand {
-  width: 8px;
-  height: 80px;
-  top: 50px;
-  left: 50%;
+.audio-control {
+    font-size: 40px;
+    color: white;
+    letter-spacing: 10px;
 }
 
-.minute-hand {
-  width: 4px;
-  height: 100px;
-  top: 30px;
-  left: 50%;
+.custom_medium {
+    margin-top: 20px;
+    font-size: 45px;
+    cursor: pointer;
+}
+
+a {
+    cursor: pointer;
 }

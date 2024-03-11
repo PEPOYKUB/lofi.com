@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
+
+        body,
+        p,
+        a,
+        h1,
+        h2,
+        select,
+        option,
+        input {
+            font-family: 'Kanit', sans-serif !important;
+        }
+
+        .video_background {
+            position: relative;
+            background-color: black;
+            height: 75vh;
+            min-height: 25rem;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .video_background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 0;
+            -ms-transform: translateX(-50%) translateY(-50%);
+            -moz-transform: translateX(-50%) translateY(-50%);
+            -webkit-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+        .video_background .player {
+            position: relative;
+            z-index: 2;
+        }
+
+        .player {
+            margin: 0;
+            position: absolute;
+            top: 45%;
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+
+        .video_background .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: black;
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        #background-video {
+            width: 100%;
+            height: auto;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        select {
+            width: 400px !important;
+            text-align-last: center !important;
+        }
+
+        .audio-control {
+            font-size: 40px;
+            color: white;
+            letter-spacing: 10px;
+        }
+
+        .bi-image {
+            letter-spacing: 9px !important;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- <ul id="slide-out" class="sidenav">
+      <li><div class="user-view">
+        <div class="background">
+          <img src="images/office.jpg">
+        </div>
+        <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
+        <a href="#name"><span class="white-text name">John Doe</span></a>
+        <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+      </div></li>
+      <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+      <li><a href="#!">Second Link</a></li>
+      <li><div class="divider"></div></li>
+      <li><a class="subheader">Subheader</a></li>
+      <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+    </ul>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
+
+    <nav>
+        <div class="nav-wrapper white">
+            <div class="container">
+                <a href="#" class="grey-text text-darken-4" style="font-size: 21px;">Lofi-Music</a>
+                <a href="#" class="sidenav-trigger grey-text text-darken" data-target="slide-out">
+                    <i class="bi bi-list"></i>
+                </a>
+                <ul class="right">
+                    <!-- 
+                        Setting menu button.
+                     -->
+                    <li>
+                        <a href="#" data-target="settings" class="sidenav-trigger 
+                        grey-text text-darken-4 
+                        hide-on-small-only hide-on-med-only show-on-large" style="font-size: 17px;">การตั้งค่า</a>
+                    </li>
+                    <!-- 
+                        About menu button.
+                     -->
+                    <li>
+                        <a href="#" class="grey-text text-darken-4" style="font-size: 17px;">
+                            เกี่ยวกับเรา
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Video background -->
+    <div class="video_background">
+        <div class="overlay"></div>
+        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+            <source src="assets/VDO/cafe_-_45887 (720p).mp4" type="video/mp4">
+        </video>
+
+        <div class="player">
+            <div class="center-align">
+                <h3 class="white-text">a-jazz-piano-110481</h3>
+                <h5 class="grey-text text-lighten">00:00</h5>
+                <div class="audio-control">
+                    <i class="bi bi-skip-start" id="previous" onclick="audio_control.previousAudio()"></i>
+                    <i class="bi" id="play_pause" onclick="audio_control.switchButton()"></i>
+                    <i class="bi bi-skip-end" id="next" onclick="audio_control.nextAudio()"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slidenav Menu options. -->
+    <ul id="slide-out" class="sidenav" id="mobile-links">
+        <li style="margin-top: 25px;">
+            <a href="#" style="font-size: 19px;" data-target="settings" class="sidenav-trigger">การตั้งค่า</a>
+            <a href="#" style="font-size: 19px;">เกี่ยวกับเรา</a>
+        </li>
+    </ul>
+
+    <!-- Setting navbar -->
+    <ul id="settings" class="sidenav">
+        <li style="margin-top: 25px;">
+            <a style="font-size: 19px;" href="#!" data-target="video-selection" class="sidenav-trigger">
+                <i style="font-size: 2rem;" class="bi bi-image"></i>
+                เปลี่ยนวิดีโอพื้นหลัง
+            </a>
+
+        </li>
+        <!-- <li><a href="#!">Second Link</a></li> -->
+        <!-- <li>
+            <div class="divider"></div>
+        </li>
+        <li><a class="subheader">Subheader</a></li>
+        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li> -->
+    </ul>
+
+    <!-- Video background select options -->
+    <ul id="video-selection" class="sidenav">
+        <li style="margin-top: 25px;">
+            <a style="font-size: 19px;">
+                <i style="font-size: 2rem;" class="bi bi-image"></i>
+                เปลี่ยนวิดีโอพื้นหลัง
+            </a>
+        </li>
+        <div class="container col s5">
+            <div class="input-field">
+                <select class="form-select" id="select" onchange="select()">
+                    <option value="assets\VDO\rain_-_44143 (720p).mp4">วิดีโอ 1</option>
+                    <option value="assets\VDO\windows_-_105540 (Original).mp4">วิดีโอ 2</option>
+                    <option value="assets\VDO\animated_background_-_104627 (Original).mp4">วิดีโอ 3</option>
+                    <option value="assets\VDO\aurora_borealis_-_90877 (720p).mp4">วิดีโอ 4</option>
+                    <option value="assets\VDO\waves_-_22183 (720p).mp4">วิดีโอ 5</option>
+                    <option value="assets\VDO\cafe_-_45887 (720p).mp4" selected>วิดีโอ 6</option>
+                    <option value="assets\VDO\clouds_-_64759 (1080p).mp4">วิดีโอ 7</option>
+                    <option value="assets\VDO\wood_-_112891 (1080p).mp4">วิดีโอ 8</option>
+                </select>
+            </div>
+        </div>
+    </ul>
+
+
+    <footer class="page-footer white">
+        <div class="container">
+            <div class="row">
+                <div class="container">
+                    <div class="col l6 s12" style="font-size: 18px;">
+                        <p class="grey-text text-darken-4">Music from Pixabay.</p>
+                        <p class="grey-text text-darken-4">
+                            หน้าร้อนต้องยกให้ไทย แต่น่ารักกว่าใคร ต้องยกให้เธอ
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const elems = document.querySelectorAll('.sidenav');
+            M.Sidenav.init(elems, {
+                inDuration: 450,
+                outDuration: 450
+            });
+
+            const select = document.querySelectorAll('select');
+            M.FormSelect.init(select);
+
+        });
+
+        function select() {
+            const value = document.getElementById("select").value;
+            console.log(value);
+            changeVideoBackground(value);
+        }
+
+        function changeVideoBackground(src) {
+            const video_obj = document.getElementsByTagName("video")[0];
+            video_obj.pause();
+            video_obj.src = src;
+            video_obj.load();
+            video_obj.play();
+        }
+
+    </script>
+
+</body>
+
+</html>

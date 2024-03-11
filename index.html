@@ -2,108 +2,213 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="title">Hello World</title>
-  <script src="js/jquery-3.7.0.min.js"></script>
-  <link rel="shortcut icon" href="assets/images/favicon.ico">
-  <link rel="stylesheet" href="css/boostrap/bootstrap.min.css">
-  <link rel="stylesheet" href="css/styles/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="title">Hello World</title>
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <!-- Materialize css -->
+    <link rel="stylesheet" href="css/materialize/materialize.min.css">
+    <script src="js/materialize/materialize.min.js"></script>
 </head>
 
 <body>
-  <!-- Navigation bar -->
-  <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-    <div class="container">
-      <a class="navbar-brand">Hello World</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon">
-        </span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" data-bs-toggle="offcanvas"
-              data-bs-target="#settings">การตั้งค่า</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="about.html">เกี่ยวกับเรา</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Offcanvas settings  -->
-  <div class="offcanvas offcanvas-end" id="settings">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Settings</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-      <div class="container-fluid mt-3">
-        <h4 class="mb-4">เปลี่ยนวิดีโอพื้นหลัง</h4>
-        <select class="form-select" aria-label="Default select example" id="select">
-          <option value="assets\VDO\rain_-_44143 (720p).mp4">วิดีโอ 1</option>
-          <option value="assets\VDO\windows_-_105540 (Original).mp4">วิดีโอ 2</option>
-          <option value="assets\VDO\animated_background_-_104627 (Original).mp4">วิดีโอ 3</option>
-          <option value="assets\VDO\aurora_borealis_-_90877 (720p).mp4">วิดีโอ 4</option>
-          <option value="assets\VDO\waves_-_22183 (720p).mp4">วิดีโอ 5</option>
-          <option value="assets\VDO\cafe_-_45887 (720p).mp4">วิดีโอ 6</option>
-          <option value="assets\VDO\clouds_-_64759 (1080p).mp4" selected>วิดีโอ 7</option>
-          <option value="assets\VDO\wood_-_112891 (1080p).mp4">วิดีโอ 8</option>
-        </select>
-        <div class="form-check mt-3">
-          <input class="form-check-input" type="checkbox" id="remember">
-          <label class="form-check-label" for="flexCheckDefault">
-            จดจำการตั้งค่า
-          </label>
+    <nav>
+        <div class="nav-wrapper white">
+            <div class="container">
+                <a href="#" class="grey-text text-darken-4" style="font-size: 21px;">Lofi-Music</a>
+                <a href="#" class="sidenav-trigger grey-text text-darken" data-target="slide-out">
+                    <i class="material-icons">menu</i>
+                </a>
+                <ul class="right">
+                    <li><a data-target="slide-out" class="sidenav-trigger 
+                        grey-text text-darken-4 
+                        hide-on-small-only hide-on-med-only show-on-large" style="font-size: 17px;">การตั้งค่า</a></li>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
+    </nav>
 
-  <br><br>
+    <!-- Video background -->
+    <div class="video_background">
+        <div class="overlay"></div>
+        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop" id="video">
+            <source type="video/mp4">
+        </video>
 
-  <header class="mt-1">
-    <div class="overlay"></div>
-    <!-- video background -->
-    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-      <source src="assets\VDO\clouds_-_64759 (1080p).mp4" type="video/mp4">
-    </video>
-    <!-- The header content -->
-    <div class="container h-100">
-      <div class="d-flex h-100 text-center align-items-center">
-        <div class="w-100 text-white">
-          <h1 class="display-6" id="name"></h1>
-          <p class="fs-3 opacity-50" id="time">00:00</p>
-          <div class="audio-control">
-            <i class="bi bi-skip-start" id="previous"></i>
-            <i class="bi bi-play" id="play_pause"></i>
-            <i class="bi bi-skip-end" id="next"></i>
-          </div>
+        <div class="player">
+            <div class="center-align">
+                <h3 class="white-text" id="name"></h3>
+                <h5 class="grey-text text-lighten" id="time">0:00</h5>
+                <div class="audio-control">
+                    <i class="custom_medium material-icons brown-text text-lighten-5"
+                        onclick="audio_control.previousAudio()">
+                        skip_previous
+                    </i>
+                    <i class="custom_medium material-icons brown-text text-lighten-5" id="play_pause"
+                        onclick="audio_control.switchButton()">
+                        play_arrow
+                    </i>
+                    <i class="custom_medium material-icons brown-text text-lighten-5"
+                        onclick="audio_control.nextAudio()">
+                        skip_next
+                    </i>
+                    <!-- <i class="bi bi-skip-end" onclick="audio_control.nextAudio()"></i> -->
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </header>
 
-  <!-- Page section example for content below the video header -->
-  <section class="my-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 mx-auto">
-          <p>Music from Pixabay.</p>
-          <p>หน้าร้อนต้องยกให้ไทย แต่น่ารักกว่าใคร ต้องยกให้เธอ</p>
+    <!-- Main slide out -->
+    <ul id="slide-out" class="sidenav">
+        <li>
+            <div class="user-view"></div>
+        </li>
+        <li class="sidenav-trigger" data-target="video-selection">
+            <a><i class="material-icons">image</i>เปลี่ยนวิดีโอพื้นหลัง</a>
+        </li>
+        <li class="sidenav-trigger" data-target="control-player">
+            <a><i class="material-icons">library_music</i>ควบคุมการเล่น</a>
+        </li>
+        <li class="sidenav-trigger" data-target="data-config">
+            <a><i class="material-icons">attach_file</i>การจดจำข้อมูล</a>
+        </li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a class="subheader">ข้อมูลเพิ่มเติม</a></li>
+        <li>
+            <a href="about.html" target="_blank" class="waves-effect">
+                <i class="material-icons">people_outline</i>
+                เกี่ยวกับเรา
+            </a>
+        </li>
+        <!-- <li><a href="about.html" target="_blank" class="waves-effect">เกี่ยวกับเรา</a></li> -->
+    </ul>
+
+
+    <!-- Video selection slide out -->
+    <ul id="video-selection" class="sidenav">
+        <li>
+            <div class="user-view"></div>
+        </li>
+        <li><a>เปลี่ยนวิดีโอพื้นหลัง</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a class="subheader">เลือกวิดีโอ</a></li>
+        <li>
+            <div class="container">
+                <div class="input-field">
+                    <select class="form-select" id="video-select">
+                        <option value="assets\VDO\rain_-_44143 (720p).mp4">วิดีโอ 1</option>
+                        <option value="assets\VDO\windows_-_105540 (Original).mp4">วิดีโอ 2</option>
+                        <option value="assets\VDO\animated_background_-_104627 (Original).mp4">วิดีโอ 3</option>
+                        <option value="assets\VDO\aurora_borealis_-_90877 (720p).mp4">วิดีโอ 4</option>
+                        <option value="assets\VDO\waves_-_22183 (720p).mp4">วิดีโอ 5</option>
+                        <option value="assets\VDO\cafe_-_45887 (720p).mp4">วิดีโอ 6</option>
+                        <option value="assets\VDO\clouds_-_64759 (1080p).mp4">วิดีโอ 7</option>
+                        <option value="assets\VDO\wood_-_112891 (1080p).mp4">วิดีโอ 8</option>
+                    </select>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    <!-- Control player slide out -->
+    <ul id="control-player" class="sidenav">
+        <li>
+            <div class="user-view"></div>
+        </li>
+        <li><a>ควบคุมการเล่น</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a class="subheader">เล่นอัตโนมัติ</a></li>
+        <li>
+            <div class="container">
+                <div class="switch">
+                    <label>
+                        ปิด
+                        <input type="checkbox" name="player" id="autoplay">
+                        <span class="lever"></span>
+                        เปิด
+                    </label>
+                </div>
+            </div>
+        </li>
+        <li><a class="subheader">แจ้งเตือนเมื่อเล่นเพลงต่อไป</a></li>
+        <li>
+            <div class="container">
+                <div class="switch">
+                    <label>
+                        ปิด
+                        <input type="checkbox" name="player" id="notify_change">
+                        <span class="lever"></span>
+                        เปิด
+                    </label>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    <!-- User data slide out -->
+    <ul id="data-config" class="sidenav">
+        <li>
+            <div class="user-view"></div>
+        </li>
+        <li><a>การจดจำข้อมูล</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a class="subheader">เรียกคืนวินาทีการฟังที่ฟัง</a></li>
+        <li>
+            <div class="container">
+                <div class="switch">
+                    <label>
+                        ปิด
+                        <input type="checkbox" name="data" id="collect_time">
+                        <span class="lever"></span>
+                        เปิด
+                    </label>
+                </div>
+            </div>
+        </li>
+        <li><a class="subheader">จดจำวิดีโอที่เลือก</a></li>
+        <li>
+            <div class="container">
+                <div class="switch">
+                    <label>
+                        ปิด
+                        <input type="checkbox" name="data" id="collect_video">
+                        <span class="lever"></span>
+                        เปิด
+                    </label>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    <!-- Footer -->
+    <footer class="page-footer white">
+        <div class="container">
+            <div class="row">
+                <div class="container">
+                    <div class="col l6 s12" style="font-size: 18px;">
+                        <p class="grey-text text-darken-4">Music from Pixabay.</p>
+                        <p class="grey-text text-darken-4">
+                            หน้าร้อนต้องยกให้ไทย แต่น่ารักกว่าใคร ต้องยกให้เธอ
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </footer>
 
-  <!-- javascript -->
-  <script src="script.js"></script>
-  <script src="js/bootstrap.bundle.js"></script>
+
+    <!-- javascript -->
+    <script src="script.js"></script>
 </body>
 
 </html>

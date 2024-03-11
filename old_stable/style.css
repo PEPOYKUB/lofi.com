@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
+
+img {
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+/*พื้นหลังเว็บ*/
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+#background-video {
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+#video-dropdown {
+  margin-top: 30px;
+}
+
+/* กำหนดสไตล์สำหรับเข็มชั่วโมงและเข็มนาที */
+.hand {
+  position: absolute;
+  background-color: black;
+  transform-origin: 50% 100%;
+}
+
+.hour-hand {
+  width: 8px;
+  height: 80px;
+  top: 50px;
+  left: 50%;
+}
+
+.minute-hand {
+  width: 4px;
+  height: 100px;
+  top: 30px;
+  left: 50%;
+}
