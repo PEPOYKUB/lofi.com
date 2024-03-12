@@ -70,3 +70,7 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+write.js
+temp/
+songs/
